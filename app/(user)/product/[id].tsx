@@ -24,6 +24,7 @@ const ProductDetails=()=>{
             fetchProductById();
         }
     }, [id]);
+    
 
     const fetchProductById = async () =>{
         try{
