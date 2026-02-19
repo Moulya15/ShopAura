@@ -42,8 +42,10 @@ function LoginPage() {
   .then((response) => {
     console.log("login clicked");
     Alert.alert("Success", "Login successful");
-    SecureStore.setItem("name",response.data);
+    console.log("Login Response: ",response.data);
+    SecureStore.setItem("name",response.data.name);
     SecureStore.setItem("mobile",mobile);//for profile
+    SecureStore.setItem("userId", response.data.id.toString());
     console.log("RESPONSE DATA:", response.data);
     if(role==="Admin"){
       router.replace("/(admin)/Dashboard");

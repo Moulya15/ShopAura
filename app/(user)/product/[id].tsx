@@ -1,10 +1,11 @@
 import axios from "axios";
-import { useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import {  ActivityIndicator, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, } from "react-native";
+import {  ActivityIndicator, Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, } from "react-native";
 import Header from '../../Header';
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import * as SecureStore from "expo-secure-store";
 interface Product{
     name:string,
     price:number,
@@ -24,6 +25,24 @@ const ProductDetails=()=>{
             fetchProductById();
         }
     }, [id]);
+
+    const addToCart = async () => {
+        const userId=await SecureStore.getItemAsync("userId");
+        try{
+            await axios.post("https://spring-api-production-e27e.up.railway.app/cart/addCart",{
+                userId:userId,
+                productId:id,
+                quantity:1,
+            });
+            Alert.alert("Success", "Product added to cart");
+            router.replace("/(user)/Cart");
+        }
+
+        catch(error){
+            console.error("Error adding to cart: ", error);
+            Alert.alert("Error","Failed to add to cart");
+        }
+    };
     
 
     const fetchProductById = async () =>{
@@ -87,8 +106,8 @@ const ProductDetails=()=>{
                 <Text style={styles.SizebuttonText}>XL</Text>
             </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}><AntDesign name="shopping-cart" size={24} color="white" />  Add to cart</Text>
+            <TouchableOpacity style={styles.button} onPress={()=> addToCart()}>
+                <Text style={styles.buttonText}><AntDesign name="shopping-cart" size={24} color="white" /> Add to cart</Text>
             </TouchableOpacity>
         </ScrollView>
         </>
