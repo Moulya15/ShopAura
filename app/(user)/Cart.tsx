@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 
-
 interface CartItem{
     id:number;
     userId:number;
@@ -34,7 +33,6 @@ const Cart=()=>{
             setLoading(false);
         }
     };
-
     // const removeItem = async (id:number)=>{
     //     try{
     //         await axios.delete(`https://spring-api-production-e27e.up.railway.app/cart/remove/${id}`);
@@ -48,7 +46,6 @@ const Cart=()=>{
                 </View>
             );
         }
-
     if(cart.length===0){
         return(
             <View style={styles.center}>

@@ -31,8 +31,7 @@ function LoginPage() {
       return;
     }
     const endpoint=
-      role ==="Admin" ? "admin/Login" : "users/Login"
-    ;
+      role ==="Admin" ? "admin/Login" : "users/Login";
 
   axios
   .post(`https://spring-api-production-e27e.up.railway.app/${endpoint}`, { 
@@ -59,8 +58,7 @@ function LoginPage() {
     console.log(error.response.data);
     Alert.alert("ERROR", error.response.data.message);
   });
-
-
+  
   }
   return (
     <View style={style.container}>
