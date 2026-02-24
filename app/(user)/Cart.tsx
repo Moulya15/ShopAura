@@ -78,25 +78,38 @@ const Cart=()=>{
 export default Cart;
 
 const styles= StyleSheet.create({
-container:{
-    flex:1,
-    padding:15,
-},
-text:{
-
-},
-button:{
-
-},
-buttonText:{
-
-},
-center:{
-    flex:1,
-    justifyContent:"center",
-    alignItems:"center",
-},
-card:{
-
-},
-})
+    container:{
+        flex:1,
+        padding:15,
+        backgroundColor:"#f5f5f5",
+    },
+    card:{
+        backgroundColor:"#fff",
+        padding:15,
+        borderRadius:10,
+        marginBottom:12,
+        elevation:2,
+    },
+    title:{
+        fontSize:16,
+        fontWeight:"600",
+        marginBottom:5,
+    },
+    text:{
+        fontSize:14,
+        color:"#555",
+    },
+    center:{
+        flex:1,
+        justifyContent:"center",
+        alignItems:"center",
+    },
+    loadingText:{
+        marginTop:10,
+        fontSize:14,
+    },
+    emptyText:{
+        fontSize:16,
+        fontWeight:"500",
+    }
+});
