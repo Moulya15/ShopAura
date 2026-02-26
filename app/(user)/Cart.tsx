@@ -1,4 +1,4 @@
-import { ActivityIndicator, StyleSheet, Text, View, FlatList, Touchable, TouchableOpacity } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View, FlatList,Image, Touchable, TouchableOpacity } from "react-native";
 import Header from "../Header";
 import { useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
@@ -7,9 +7,18 @@ import axios from "axios";
 interface CartItem{
     id:number;
     userId:number;
-    productId: number;
+    product: Product;
     quantity: number;
 }
+interface Product{
+    id:number;
+    name:string;
+    price:string;
+    description:string;
+    image:any;
+}
+
+
 const Cart=()=>{
     const[cart, setCart]= useState<CartItem[]>([]);
     const [loading,setLoading] = useState(true);
@@ -25,6 +34,7 @@ const Cart=()=>{
                 `https://spring-api-production-e27e.up.railway.app/cart/getCart/${userId}`,
             );
             setCart(response.data);
+            console.log("Cart data:", response.data);
         }
         catch(error){
             console.error(error);
@@ -61,10 +71,15 @@ const Cart=()=>{
             data={cart}
             keyExtractor={(item)=> item.id.toString()}
             renderItem={({ item })=>(
+                
                 <View style={styles.card}>
-                    <Text style={styles.text}>Product ID : {item.productId}</Text>
+                    <Text style={styles.text}>Product ID : {item.product?.id}</Text>
                     <Text style={styles.text}>Qunatity : {item.quantity}</Text>
-
+                    <Image source={{
+                uri:`https://spring-api-production-e27e.up.railway.app/products/GetImage/${item.product.image}`,
+            }}
+            style={styles.image}
+            />
                     {/* <TouchableOpacity style={styles.button} onPress={() => removeItem(item.id)}>
                         <Text style={styles.buttonText}>Remove</Text>
                     </TouchableOpacity> */}
@@ -111,5 +126,11 @@ const styles= StyleSheet.create({
     emptyText:{
         fontSize:16,
         fontWeight:"500",
+    },
+    image:{
+    width:"100%",
+    height:350,
+    borderRadius:10,
+    marginBottom:20,
     }
 });

@@ -50,7 +50,6 @@ const ProductDetails=()=>{
             const response=await 
             axios.get(`https://spring-api-production-e27e.up.railway.app/products/getProductsByID/${id}`);
             setProduct(response.data);
-            console.log(response.data);
         }
         catch(error){
             console.error("Error fetching product:", error);
