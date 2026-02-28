@@ -31,7 +31,7 @@ const ProductDetails=()=>{
         try{
             await axios.post("https://spring-api-production-e27e.up.railway.app/cart/addCart",{
                 userId:userId,
-                productId:id,
+                product:{id:id},
                 quantity:1,
             });
             Alert.alert("Success", "Product added to cart");
@@ -105,7 +105,7 @@ const ProductDetails=()=>{
                 <Text style={styles.SizebuttonText}>XL</Text>
             </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.button} onPress={()=> addToCart()}>
+            <TouchableOpacity style={styles.button} onPress={addToCart}>
                 <Text style={styles.buttonText}><AntDesign name="shopping-cart" size={24} color="white" /> Add to cart</Text>
             </TouchableOpacity>
         </ScrollView>
