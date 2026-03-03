@@ -1,16 +1,11 @@
-import { Alert, Button, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
-import * as SecureStore from "expo-secure-store";
-import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { FlatList } from "react-native";
-import Header from "../Header";
-import Ionicons from '@expo/vector-icons/Ionicons';
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
-import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import axios from "axios";
+import { useRouter } from "expo-router";
+import * as SecureStore from "expo-secure-store";
+import { useEffect, useState } from "react";
+import { Alert, FlatList, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import Swiper from 'react-native-swiper';
+import Header from "../Header";
 
 const Dashboard = () => {
   const [products, setproducts] = useState([]);
@@ -21,7 +16,7 @@ const Dashboard = () => {
 
   const fetchProducts = () => {
     console.log("inside fetchproducts");
-    axios.get("https://spring-api-production-e27e.up.railway.app/products/getProducts")
+    axios.get("http://10.50.15.134:8080/products/getProducts")
       .then((response) => {
         console.log("Inside then()")
         setproducts(response.data);
@@ -56,7 +51,7 @@ const Dashboard = () => {
       return;
     }
 
-    axios.post("https://spring-api-production-e27e.up.railway.app/products/ProductRegistration", {
+    axios.post("http://10.50.15.134:8080/products/ProductRegistration", {
       name,
       price,
       description
@@ -88,7 +83,7 @@ const Dashboard = () => {
       })
       }
     >
-      <Image source={{ uri: `https://spring-api-production-e27e.up.railway.app/products/GetImage/${item.image}` }} style={styles.imageUploaded} />
+      <Image source={{ uri: `http://10.50.15.134:8080/products/GetImage/${item.image}` }} style={styles.imageUploaded} />
       <Text style={styles.productName}>{item.name}</Text>
       <Text style={styles.producDescription}>{item.description}</Text>
       <Text style={styles.productPrice}><FontAwesome name="rupee" size={12} color="black" /> {item.price}</Text>
@@ -102,7 +97,8 @@ const Dashboard = () => {
     <>
       <Header />
       {/* z */}
-      <View style={{ height: 200 }}>
+      <ScrollView>
+        <View style={{ height: 200 }}>
         <Swiper autoplay showsPagination>
           <Image source={require("../../assets/images/myntra1.jpg")} style={{ flex: 1, width: "100%", borderRadius: 40, marginTop: 10 }} />
           <Image source={require("../../assets/images/myntra2.jpg")} style={{ flex: 1, width: "100%", borderRadius: 40, marginTop: 10 }} />
@@ -154,6 +150,7 @@ const Dashboard = () => {
         <View>
         </View>
       </View>
+      </ScrollView>
     </>
   )
 
@@ -241,7 +238,7 @@ const styles = StyleSheet.create({
   },
   imageUploaded: {
     width: "100%",
-    height: 280,
+    height: 200,
     marginTop: 20,
     borderRadius: 10,
     borderColor: "black",

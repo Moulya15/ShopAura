@@ -40,12 +40,12 @@ const Profile=()=>{
 
     const fetchUser = async (mobileNo:any) => {
     // console.log("inside fetchproducts");
-    axios.get(`https://spring-api-production-e27e.up.railway.app/users/GetUsersByMobile/${mobileNo}`)
+    axios.get(`http://10.50.15.134:8080/users/GetUsersByMobile/${mobileNo}`)
       .then((response) => {
         console.log(response.data.name);
         console.log("Inside then()")
         setName(response.data.name);
-        // console.log(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.log("Error", error);
@@ -94,7 +94,7 @@ const Profile=()=>{
         <>
         <Header/>
         <View style={style.container}>
-            <Text style={style.heading}>Profile Screen</Text>
+            <Text style={style.heading}>User Profile </Text>
             <TextInput
             style={style.input}
             value={name}
@@ -128,7 +128,7 @@ const style = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
-    color: "#0cbfebff",
+    color: "rgb(0, 8, 159)",
     marginTop: 20,
   },
   container: {
@@ -137,7 +137,7 @@ const style = StyleSheet.create({
     alignItems: "center",
   },
   button: {
-    backgroundColor: "#0cbfebff",
+    backgroundColor: "rgb(0, 8, 159)",
     paddingHorizontal: 16,
     paddingVertical: 8,
     marginTop: 20,

@@ -29,7 +29,7 @@ const ProductDetails=()=>{
     const addToCart = async () => {
         const userId=await SecureStore.getItemAsync("userId");
         try{
-            await axios.post("https://spring-api-production-e27e.up.railway.app/cart/addCart",{
+            await axios.post("http://10.50.15.134:8080/cart/addCart",{
                 userId:userId,
                 product:{id:id},
                 quantity:1,
@@ -48,7 +48,7 @@ const ProductDetails=()=>{
     const fetchProductById = async () =>{
         try{
             const response=await 
-            axios.get(`https://spring-api-production-e27e.up.railway.app/products/getProductsByID/${id}`);
+            axios.get(`http://10.50.15.134:8080/products/getProductsByID/${id}`);
             setProduct(response.data);
         }
         catch(error){
@@ -81,7 +81,7 @@ const ProductDetails=()=>{
         <ScrollView style={styles.container}>
             <Image
             source={{
-                uri:`https://spring-api-production-e27e.up.railway.app/products/GetImage/${product.image}`,
+                uri:`http://10.50.15.134:8080/products/GetImage/${product.image}`,
             }}
             style={styles.image}
             />

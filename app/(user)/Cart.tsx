@@ -33,7 +33,7 @@ const Cart=()=>{
         try{
             const userId = await SecureStore.getItemAsync("userId");
             const response=await axios.get(
-                `https://spring-api-production-e27e.up.railway.app/cart/getCart/${userId}`,
+                `http://10.50.15.134:8080/cart/getCart/${userId}`,
             );
             setCart(response.data);
             // console.log("Cart data:", response.data);
@@ -47,7 +47,7 @@ const Cart=()=>{
     };
     const removeItem = async (id:number)=>{
         try{
-            await axios.delete(`https://spring-api-production-e27e.up.railway.app/cart/deleteCart/${id}`);
+            await axios.delete(`http://10.50.15.134:8080/cart/deleteCart/${id}`);
             Alert.alert("Removed", "Item removed from cart");
             fetchCart();
         }
@@ -74,10 +74,10 @@ const Cart=()=>{
     const updateQuantity=async (cartId: number,newQty:number)=>{
         try{
             if(newQty<=0){
-                await axios.delete(`https://spring-api-production-e27e.up.railway.app/cart/deleteCart/${cartId}`,);
+                await axios.delete(`http://10.50.15.134:8080/cart/deleteCart/${cartId}`,);
             }
             else{
-                await axios.put(`https://spring-api-production-e27e.up.railway.app/cart/updateQuantity/${cartId}`,{
+                await axios.put(`http://10.50.15.134:8080/cart/updateQuantity/${cartId}`,{
                     quantity:newQty,
 
                 },);
@@ -111,7 +111,7 @@ const Cart=()=>{
                 
                 <View style={styles.card}>
                     <Image source={{
-                uri:`https://spring-api-production-e27e.up.railway.app/products/GetImage/${item?.product?.image}`,
+                uri:`http://10.50.15.134:8080/products/GetImage/${item?.product?.image}`,
             }}
             style={styles.image}
             />

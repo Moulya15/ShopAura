@@ -1,4 +1,4 @@
-import { Alert, Button, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
+import { Alert, Button, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
 import * as SecureStore from "expo-secure-store";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
@@ -49,7 +49,7 @@ const captureImage= async ()=>{
   const result = await ImagePicker.launchCameraAsync({
     mediaTypes:ImagePicker.MediaTypeOptions.Images,
     allowsEditing: true,
-    aspect:[4,3],
+    aspect:[93,4],
     quality:0.5,
     base64:true
   });
@@ -117,7 +117,7 @@ const captureImage= async ()=>{
       type:"image/jpeg",
     } as any);
 
-    axios.post("https://spring-api-production-e27e.up.railway.app/products/ProductRegistration", formData,{
+    axios.post("http://10.50.15.134:8080/products/ProductRegistration", formData,{
       headers:{
         "Content-Type": "multipart/form-data",
       },
@@ -168,6 +168,7 @@ const captureImage= async ()=>{
 
   return (
     <>
+    <ScrollView>
     <Header/>
       <View style={styles.container}>
         <Text style={styles.heading}>Dashboard</Text>
@@ -235,6 +236,7 @@ const captureImage= async ()=>{
 
         
       </View>
+      </ScrollView>
     </>
   )
 
@@ -288,11 +290,14 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
   imageUploaded:{
-    width:200,
-    height:200,
+    // width:200,
+    // height:200,
     marginTop:20,
-    borderRadius:10,
+    // borderRadius:10,
     borderColor:"black",
-    borderWidth:4
+    borderWidth:4,
+    width: 180,
+    height: 240, // 3:4 ratio
+    borderRadius: 12
   }
 });

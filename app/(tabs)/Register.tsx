@@ -44,7 +44,7 @@ function LoginPage() {
       return;
     }
     axios
-      .post("https://spring-api-production-e27e.up.railway.app/users/UserRegistration", {
+      .post("http://10.50.15.134:8080/users/UserRegistration", {
         name: name,
         mobile: mobile,
         password: password,

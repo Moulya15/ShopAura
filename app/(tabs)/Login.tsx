@@ -34,7 +34,7 @@ function LoginPage() {
       role ==="Admin" ? "admin/Login" : "users/Login";
 
   axios
-  .post(`https://spring-api-production-e27e.up.railway.app/${endpoint}`, { 
+  .post(`http://10.50.15.134:8080/${endpoint}`, { 
     mobile,
     password,
   })

@@ -18,7 +18,7 @@ const Recipes = ()=>{
     },[]);
 
     const fetchData = () =>{
-            axios.get("https://dummyjson.com/recipes")
+            axios.get("http://dummyjson.com/recipes")
             .then((response)=>{
                 setdata(response.data.recipes);
                 console.log(response.data.recipe);
