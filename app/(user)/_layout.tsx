@@ -5,6 +5,7 @@ import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 
 export default function TabLayout() {
@@ -24,6 +25,21 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => (<IconSymbol size={28} name="house.fill" color={color} />),
         }}
       />
+      
+      <Tabs.Screen
+        name="Cart"
+        options={{
+          title: 'Cart',
+          tabBarIcon: ({ color }) =>( <AntDesign name="shopping-cart" size={24} color="black" />),
+        }}
+      />
+      <Tabs.Screen
+        name="OrderHistory"
+        options={{
+          title: 'History',
+          tabBarIcon: ({ color }) =>( <FontAwesome name="history" size={28} color={color} />),
+        }}
+      />
       <Tabs.Screen
         name="Profile"
         options={{
@@ -31,6 +47,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) =>( <FontAwesome name="user" size={28} color={color} />),
         }}
       />
+      
     </Tabs>
   );
 }

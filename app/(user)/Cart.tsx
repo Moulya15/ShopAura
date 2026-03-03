@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 interface CartItem{
     id:number;
@@ -35,7 +36,7 @@ const Cart=()=>{
                 `https://spring-api-production-e27e.up.railway.app/cart/getCart/${userId}`,
             );
             setCart(response.data);
-            console.log("Cart data:", response.data);
+            // console.log("Cart data:", response.data);
         }
         catch(error){
             console.error(error);
@@ -115,11 +116,13 @@ const Cart=()=>{
             style={styles.image}
             />
                     <View style={styles.detailesSection}>
-                        <Text style={styles.productName}>{item?.product?.name}</Text>
-                        <Text style={styles.priceText}>{item?.product?.price}</Text>
+                        
 
                         <View style={styles.qytContainer}>
-                            <TouchableOpacity style={styles.qytButton} onPress={()=> updateQuantity(item.id, item.quantity-1)}>
+                            <Text style={styles.productName}>{item?.product?.name}</Text>
+                       
+                            <View style={styles.plusminus}>
+                                <TouchableOpacity style={styles.qytButton} onPress={()=> updateQuantity(item.id, item.quantity-1)}>
                                 <Text style={styles.qytText}>-</Text>
                             </TouchableOpacity>
 
@@ -128,18 +131,22 @@ const Cart=()=>{
                             <TouchableOpacity style={styles.qytButton} onPress={()=> updateQuantity(item.id,item.quantity+1)}>
                                 <Text style={styles.qytText}>+</Text>
                             </TouchableOpacity>
+                            </View>
                         </View>
-
+                         <View style={styles.trash}>
+                            <Text style={styles.priceText}><FontAwesome name="rupee" size={13} color="black" /> {item?.product?.price}</Text>
+<TouchableOpacity onPress={()=>{ removeItem(item.id)}}
+                        style={styles.deleteIcon}>
+                            <Ionicons name="trash" size={24} color="red"/>
+                    </TouchableOpacity>
+                         </View>
                         <Text style={styles.itemTotal}>
                             Total: Rs{" "}
                             {parseInt(item?.product?.price || "0") * item.quantity}
                         </Text>
                     </View>
 
-                    <TouchableOpacity onPress={()=>{ removeItem(item.id)}}
-                        style={styles.deleteIcon}>
-                            <Ionicons name="trash" size={24} color="red"/>
-                    </TouchableOpacity>
+                    
                 </View>
             )}
             />
@@ -207,18 +214,21 @@ fontWeight:"bold",
     },
     priceText:{
 fontSize:14,
-color:"#555",
+color:"#000000",
 marginVertical:4,
+fontWeight:"bold"
     },
     qytContainer:{
 flexDirection:"row",
 alignItems:"center",
 marginVertical:8,
+justifyContent:"space-between",
     },
     qytButton:{
-backgroundColor:"red",
-paddingHorizontal:12,
-paddingVertical:5,
+borderColor:"red",
+borderWidth:1,
+paddingHorizontal:6,
+paddingVertical:0,
 borderRadius:5,
     },
     qytText:{
@@ -238,6 +248,8 @@ marginTop:5,
     },
     deleteIcon:{
 padding:8,
+marginLeft:250
+
     },
     totalConatiner:{
 borderWidth:1,
@@ -260,5 +272,11 @@ alignItems:"center",
 color:"#fff",
 fontSize:16,
 fontWeight:"bold",
+    },
+    plusminus:{
+        flexDirection:"row",
+    },
+    trash:{
+        flexDirection:"row",
     }
 });
