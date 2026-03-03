@@ -65,9 +65,12 @@ const Cart=()=>{
         }
     if(cart.length===0){
         return(
+            <>
+            <Header/>
             <View style={styles.center}>
                 <Text>Your cart is Empty</Text>
             </View>
+            </>
         );
     }
 
@@ -93,13 +96,26 @@ const Cart=()=>{
         return total+parseInt(item?.product?.price || "0") * item.quantity;
     }, 0);
 
-    const handleCheckout=()=>{
-        if(cart.length===0){
-            Alert.alert("Cart Empty", "Add items before checkout");
-            return;
+    const handleCheckout= async()=>{
+        try{
+            const userId=await SecureStore.getItemAsync("userId");
+
+            const response=await axios.post(
+                `http://10.50.15.134:8080/order/checkout/${userId}`
+            );
+
+            Alert.alert("Success", "Order placed successfully");
+
+            setCart([]);
         }
-        Alert.alert("Success", "proceeding to payment..");
+
+        catch(error){
+            Alert.alert("Error", "Chechout failed");
+            console.error(error);
+        }
     };
+
+
     return (
         <>
         <Header/>
