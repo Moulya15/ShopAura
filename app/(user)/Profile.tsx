@@ -12,6 +12,7 @@ const Profile=()=>{
 
   console.log("Mobile",loginMobile);
 
+  
   //to change pw
   const [name, setName] = useState("");
     const [mobile, setmobile] = useState("");
