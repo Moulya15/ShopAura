@@ -5,6 +5,7 @@ import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { baseURL } from "../_layout";
 
 interface CartItem{
     id:number;
@@ -33,7 +34,7 @@ const Cart=()=>{
         try{
             const userId = await SecureStore.getItemAsync("userId");
             const response=await axios.get(
-                `http://10.50.15.134:8080/cart/getCart/${userId}`,
+                `${baseURL}/cart/getCart/${userId}`,
             );
             setCart(response.data);
             // console.log("Cart data:", response.data);
@@ -47,7 +48,7 @@ const Cart=()=>{
     };
     const removeItem = async (id:number)=>{
         try{
-            await axios.delete(`http://10.50.15.134:8080/cart/deleteCart/${id}`);
+            await axios.delete(`${baseURL}/cart/deleteCart/${id}`);
             Alert.alert("Removed", "Item removed from cart");
             fetchCart();
         }
@@ -77,10 +78,10 @@ const Cart=()=>{
     const updateQuantity=async (cartId: number,newQty:number)=>{
         try{
             if(newQty<=0){
-                await axios.delete(`http://10.50.15.134:8080/cart/deleteCart/${cartId}`,);
+                await axios.delete(`${baseURL}/cart/deleteCart/${cartId}`,);
             }
             else{
-                await axios.put(`http://10.50.15.134:8080/cart/updateQuantity/${cartId}`,{
+                await axios.put(`${baseURL}/cart/updateQuantity/${cartId}`,{
                     quantity:newQty,
 
                 },);
@@ -101,7 +102,7 @@ const Cart=()=>{
             const userId=await SecureStore.getItemAsync("userId");
 
             const response=await axios.post(
-                `http://10.50.15.134:8080/order/checkout/${userId}`
+                `${baseURL}/order/checkout/${userId}`
             );
 
             Alert.alert("Success", "Order placed successfully");
@@ -127,7 +128,7 @@ const Cart=()=>{
                 
                 <View style={styles.card}>
                     <Image source={{
-                uri:`http://10.50.15.134:8080/products/GetImage/${item?.product?.image}`,
+                uri:`${baseURL}/products/GetImage/${item?.product?.image}`,
             }}
             style={styles.image}
             />

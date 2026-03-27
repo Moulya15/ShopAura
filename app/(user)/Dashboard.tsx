@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Alert, FlatList, Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import Swiper from 'react-native-swiper';
 import Header from "../Header";
+import { baseURL } from "../_layout";
 
 const Dashboard = () => {
   const [products, setproducts] = useState([]);
@@ -16,7 +17,7 @@ const Dashboard = () => {
 
   const fetchProducts = () => {
     console.log("inside fetchproducts");
-    axios.get("http://10.50.15.134:8080/products/getProducts")
+    axios.get(`${baseURL}/products/getProducts`)
       .then((response) => {
         console.log("Inside then()")
         setproducts(response.data);
@@ -51,7 +52,7 @@ const Dashboard = () => {
       return;
     }
 
-    axios.post("http://10.50.15.134:8080/products/ProductRegistration", {
+    axios.post(`${baseURL}/products/ProductRegistration`, {
       name,
       price,
       description
@@ -83,7 +84,7 @@ const Dashboard = () => {
       })
       }
     >
-      <Image source={{ uri: `http://10.50.15.134:8080/products/GetImage/${item.image}` }} style={styles.imageUploaded} />
+      <Image source={{ uri: `${baseURL}/products/GetImage/${item.image}` }} style={styles.imageUploaded} />
       <Text style={styles.productName}>{item.name}</Text>
       <Text style={styles.producDescription}>{item.description}</Text>
       <Text style={styles.productPrice}><FontAwesome name="rupee" size={12} color="black" /> {item.price}</Text>

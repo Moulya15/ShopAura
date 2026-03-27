@@ -6,6 +6,7 @@ import Header from '../../Header';
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import * as SecureStore from "expo-secure-store";
+import { baseURL } from "@/app/_layout";
 interface Product{
     name:string,
     price:number,
@@ -29,7 +30,7 @@ const ProductDetails=()=>{
     const addToCart = async () => {
         const userId=await SecureStore.getItemAsync("userId");
         try{
-            await axios.post("http://10.50.15.134:8080/cart/addCart",{
+            await axios.post(`${baseURL}/cart/addCart`,{
                 userId:userId,
                 product:{id:id},
                 quantity:1,
@@ -48,7 +49,7 @@ const ProductDetails=()=>{
     const fetchProductById = async () =>{
         try{
             const response=await 
-            axios.get(`http://10.50.15.134:8080/products/getProductsByID/${id}`);
+            axios.get(`${baseURL}/products/getProductsByID/${id}`);
             setProduct(response.data);
         }
         catch(error){
@@ -81,7 +82,7 @@ const ProductDetails=()=>{
         <ScrollView style={styles.container}>
             <Image
             source={{
-                uri:`http://10.50.15.134:8080/products/GetImage/${product.image}`,
+                uri:`${baseURL}/products/GetImage/${product.image}`,
             }}
             style={styles.image}
             />

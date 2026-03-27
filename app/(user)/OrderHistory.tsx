@@ -3,6 +3,7 @@ import Header from "../Header";
 import { useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
+import { baseURL } from "../_layout";
 
 interface Product{
     id:number;
@@ -38,7 +39,7 @@ const history=()=>{
         try{
             const userId=await SecureStore.getItemAsync("userId");
             const response=await axios.get(
-                `http://10.50.15.134:8080/order/history/${userId}`
+                `${baseURL}/order/history/${userId}`
             );
             setOrders(response.data);
         }
@@ -86,7 +87,7 @@ const history=()=>{
                 {item?.items?.map((orderItem)=>(
                     <View key={orderItem.id} style={styles.itemRow}>
                         <Image source ={{
-                            uri: `http://10.50.15.134:8080/products/GetImage/${orderItem.product.image}`,
+                            uri: `${baseURL}/products/GetImage/${orderItem.product.image}`,
                         }}
                         style={styles.image}
                         />

@@ -6,6 +6,7 @@ import axios from "axios";
 import { FlatList } from "react-native";
 import Header from "../Header";
 import * as ImagePicker from 'expo-image-picker';
+import { baseURL } from "../_layout";
 
 
 const Dashboard = () => {
@@ -71,7 +72,7 @@ const captureImage= async ()=>{
 
   const fetchProducts = () => {
     console.log("inside fetchproducts");
-    axios.get("http://10.50.15.134:8080/products/getProducts")
+    axios.get(`${baseURL}/products/getProducts`)
       .then((response) => {
         console.log("Inside then()")
         setproducts(response.data);
@@ -117,7 +118,7 @@ const captureImage= async ()=>{
       type:"image/jpeg",
     } as any);
 
-    axios.post("http://10.50.15.134:8080/products/ProductRegistration", formData,{
+    axios.post(`${baseURL}/products/ProductRegistration`, formData,{
       headers:{
         "Content-Type": "multipart/form-data",
       },

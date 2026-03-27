@@ -9,6 +9,8 @@ export const unstable_settings = {
   anchor: '(tabs)',
 };
 
+export const baseURL = "http://192.168.29.12:8080"
+
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 

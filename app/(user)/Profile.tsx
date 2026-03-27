@@ -5,6 +5,7 @@ import * as SecureStore from "expo-secure-store";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Header from "../Header";
+import { baseURL } from "../_layout";
 
 const Profile=()=>{
 
@@ -43,7 +44,7 @@ const Profile=()=>{
 
     const fetchUser = async (mobileNo:any) => {
     // console.log("inside fetchproducts");
-    axios.get(`http://10.50.15.134:8080/users/GetUsersByMobile/${mobileNo}`)
+    axios.get(`${baseURL}/users/GetUsersByMobile/${mobileNo}`)
       .then((response) => {
         console.log(response.data.name);
         console.log("Inside then()")
@@ -86,7 +87,7 @@ const Profile=()=>{
     };
 
     try{
-      const response=await axios.put("http://10.50.15.134:8080/users/UpdateProfile/",obj,);
+      const response=await axios.put(`${baseURL}:8080/users/UpdateProfile/`,obj,);
       Alert.alert("Success",response.data.message || "Profile updated");
     }
     catch(error:any){

@@ -10,6 +10,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useState } from "react";
 import { router } from "expo-router";
 import axios from "axios";
+import { baseURL } from "../_layout";
 
 function LoginPage() {
   const [name, setName] = useState("");
@@ -44,7 +45,7 @@ function LoginPage() {
       return;
     }
     axios
-      .post("http://10.50.15.134:8080/users/UserRegistration", {
+      .post(`${baseURL}/users/UserRegistration`, {
         name: name,
         mobile: mobile,
         password: password,

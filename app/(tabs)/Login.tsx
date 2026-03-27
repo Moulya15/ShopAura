@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View, useColorScheme } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import { lightTheme,darkTheme } from "../Theme";
+import { baseURL } from "../_layout";
 
 function LoginPage() {
   const [mobile, setmobile] = useState("");
@@ -34,7 +35,7 @@ function LoginPage() {
       role ==="Admin" ? "admin/Login" : "users/Login";
 
   axios
-  .post(`http://10.50.15.134:8080/${endpoint}`, { 
+  .post(`${baseURL}/${endpoint}`, { 
     mobile,
     password,
   })
