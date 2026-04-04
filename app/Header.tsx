@@ -18,7 +18,10 @@ const Header = () => {
       <StatusBar barStyle="light-content" />
       <View style={styles.container}>
         <View style={styles.row}>
-          <Text style={styles.title}>React Native</Text>
+          <Text style={styles.title}>Shop Aura</Text>
+          <View>
+            
+          </View>
 
           <View style={styles.rightSection}>
             <TouchableOpacity onPress={()=> setshowSettings(true)}>
@@ -60,11 +63,12 @@ export default Header;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#160a9a',
+    backgroundColor: '#db3ec1',
     height: 120,
   },
   title: {
     marginTop: 50,
+    marginLeft:20,
     fontSize: 20,
     fontWeight: 'bold',
     color: 'rgb(255, 255, 255)',

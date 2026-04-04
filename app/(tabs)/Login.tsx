@@ -1,17 +1,22 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import axios from "axios";
-import { router } from "expo-router";
+import { Link, router, useNavigation, useRouter } from "expo-router";
 import { useState } from "react";
 import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View, useColorScheme } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import { lightTheme,darkTheme } from "../Theme";
 import { baseURL } from "../_layout";
+import { Image, ImageBackground } from "expo-image";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+
 
 function LoginPage() {
   const [mobile, setmobile] = useState("");
   const [password, setpassword] = useState("");
   const[role,setrole] = useState("");
   const scheme=useColorScheme();
+  const router = useRouter();
+const navigation = useNavigation();
 
   // const theme = scheme === "dark"? style.darkTheme : style.lightTheme;
   const theme = scheme === "dark"? darkTheme: lightTheme;
@@ -62,16 +67,19 @@ function LoginPage() {
   
   }
   return (
-    <View style={style.container}>
-      <FontAwesome 
-        name="user-circle-o" 
-        size={70} 
-        color="#0cbfebff" 
-      />
-
+    <ImageBackground source={require('../../assets/images/login.png')} style={style.container_image}>
+{/* a button to got back */}
+<TouchableOpacity onPress={() => navigation.goBack()}>
+  <MaterialIcons name="keyboard-backspace" size={34} color="black" style={style.topArrow} />
+</TouchableOpacity>
+<View style={style.userIcon}>
+      <FontAwesome name="user-circle-o" size={100} color="pink" />
+    </View>
+      <View style={style.container}>
+      
       { !role && (
         <>
-        <Text style={[style.heading , {color:theme.text}]}>Choose User Type</Text>
+        <Text style={[style.heading ]}>Choose User Type</Text>
         <View style={style.buttonContainer}>
           <TouchableOpacity style={style.button} onPress={()=>setrole("Admin")}>
             <Text style={style.buttonText}>Admin</Text>
@@ -119,6 +127,7 @@ function LoginPage() {
     )}
 
     </View>
+    </ImageBackground>
   );
 }
 
@@ -130,10 +139,16 @@ const style = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
-    color: "#0cbfebff",
+    color: "rgb(239, 118, 221)",
     marginTop: 20,
   },
   container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom:400
+  },
+  container_image: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -169,5 +184,12 @@ const style = StyleSheet.create({
   },
   buttonContainer:{
     flexDirection:"row"//makes the buttons to be in a row, if this is not given, then they appear one after another
+  },
+  topArrow:{
+marginTop:50,
+marginRight:320
+  },
+  userIcon:{
+    marginTop:150
   }
 });
