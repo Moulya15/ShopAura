@@ -20,7 +20,6 @@ const Header = () => {
         <View style={styles.row}>
           <Text style={styles.title}>Shop Aura</Text>
           <View>
-            
           </View>
 
           <View style={styles.rightSection}>
@@ -63,15 +62,15 @@ export default Header;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#db3ec1',
-    height: 120,
+    backgroundColor: '#ee99f2',
+    height: 100,
   },
   title: {
     marginTop: 50,
     marginLeft:20,
     fontSize: 20,
     fontWeight: 'bold',
-    color: 'rgb(255, 255, 255)',
+    color: 'rgb(0, 0, 0)',
   },
   button: {
     backgroundColor: "rgb(233, 14, 54)",
