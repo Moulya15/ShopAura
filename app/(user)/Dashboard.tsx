@@ -1,5 +1,4 @@
-//this is master branch
-
+//this is feature
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import axios from "axios";
 import { useRouter } from "expo-router";
@@ -39,7 +38,39 @@ const Dashboard = () => {
 
 
 
+  const handleSubmit = () => {
+    console.log("submit button clciked");
+    if (!name) {
+      Alert.alert("Error", "Please enter name");
+      return;
+    }
+    if (!price) {
+      Alert.alert("Error", "Please enter price");
+      return;
+    }
+    if (!description) {
+      Alert.alert("Error", "Please enter description");
+      return;
+    }
 
+    axios.post(`${baseURL}/products/ProductRegistration`, {
+      name,
+      price,
+      description
+    })
+      .then((response) => {
+        console.log("Inside Then");
+        Alert.alert("Success", response.data);
+        fetchProducts();
+        setdescription("");
+        setname("");
+        setdescription("");
+      })
+      .catch((error) => {
+        Alert.alert("Error", error.response.data.message);
+        console.log("Inside catch");
+      })
+  }
 
   const filteredData = products.filter((item: any) =>
     item.name.toLowerCase().includes(search.toLowerCase()));

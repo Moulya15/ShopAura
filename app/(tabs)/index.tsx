@@ -58,12 +58,16 @@
 
 import { Link, router } from "expo-router";
 import { useEffect } from "react";
-import { StyleSheet, Text, View, useColorScheme } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, useColorScheme } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import { lightTheme, darkTheme } from "../Theme";
-import { ImageBackground } from "expo-image";
+import { Image, ImageBackground } from "expo-image";
+import {
+  useFonts,
+  Judson_400Regular,
+  Judson_700Bold,
+} from "@expo-google-fonts/judson";
 
-// 👉 If using custom fonts, make sure you load them in your app (expo-font)
 
 const Index = () => {
   useEffect(() => {
@@ -78,30 +82,46 @@ const Index = () => {
 
   const scheme = useColorScheme();
   const theme = scheme === "dark" ? darkTheme : lightTheme;
+  const [fontsLoaded] = useFonts({
+  Judson_400Regular,
+  Judson_700Bold,
+});
+
+if (!fontsLoaded) {
+  return null; // or loading screen
+}
 
   return (
-    <ImageBackground
+    <View   style={styles.container}>
+    <Image
       source={require("../../assets/images/wallpaper.png")}
-      style={styles.container}
-      contentFit="cover"
-    >
+  style={styles.image}
+    />
       <View style={styles.overlay}>
         
         {/* Bottom Content */}
         <View style={styles.bottomContainer}>
-          <Text style={[styles.heading, { color: theme.text }]}>
+          {/* <Text style={[styles.heading, { color: theme.text }]}>
             SHOP AURA
-          </Text>
-
-          <Link href="/(tabs)/Login">
-            <Text style={[styles.subText, { color: theme.text }]}>
-              Let’s Start
-            </Text>
-          </Link>
+          </Text> */}
+<View style={styles.button}>
+          <TouchableOpacity
+  style={styles.button}
+  onPress={() => router.push("/(tabs)/Login")}
+>
+  <Text style={styles.subText}>Let’s Start</Text>
+</TouchableOpacity>
+          </View>
+          
         </View>
 
       </View>
-    </ImageBackground>
+
+      <Text style={{fontFamily:"Judson_400Regular"}}>
+© 2026 Shop Aura. Made with ❤️
+      </Text>
+    
+    </View>
   );
 };
 
@@ -110,8 +130,26 @@ export default Index;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor:"#f6f3eb",
   },
+ image: {
+  marginTop:250,
+    width: 300,
+    height: 200,
+  },
+  button:{
+backgroundColor:"#B80047",
+borderRadius:20,
+paddingHorizontal:20,
+width:200,
+height:50,
+justifyContent:"center",
+alignItems:"center",
+marginBottom:0,
 
+  },
   overlay: {
     flex: 1,
     justifyContent: "flex-end",
@@ -121,25 +159,19 @@ const styles = StyleSheet.create({
 
   bottomContainer: {
     alignItems: "center",
+    marginBottom: 200,
   },
 
-  heading: {
-    fontSize: 34,
-    fontWeight: "700", // fallback if font not loaded
-    letterSpacing: 3,
-    textTransform: "uppercase",
-
-    // ✨ soft glow effect
-    textShadowColor: "rgba(255,255,255,0.4)",
-    textShadowOffset: { width: 0, height: 0 },
-    textShadowRadius: 10,
-  },
+ 
 
   subText: {
-    fontSize: 16,
-    marginTop: 10,
-    letterSpacing: 1,
+    fontFamily: "Judson_400Regular",
+  fontSize: 28,
+   
     opacity: 0.9,
-     textDecorationLine: 'underline'
+   color:"#fff",
+
+   
+   textAlign:"center"
   },
 });
