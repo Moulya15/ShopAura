@@ -62,15 +62,15 @@ export default Header;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#ee99f2',
+    backgroundColor: '#B80047',
     height: 100,
   },
   title: {
     marginTop: 50,
     marginLeft:20,
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'rgb(0, 0, 0)',
+    fontSize: 30,
+    fontFamily: "Judson_700Bold",
+    color: '#f6f3eb',
   },
   button: {
     backgroundColor: "rgb(233, 14, 54)",

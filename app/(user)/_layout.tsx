@@ -6,6 +6,9 @@ import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import Feather from '@expo/vector-icons/Feather';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 
 export default function TabLayout() {
@@ -22,7 +25,7 @@ export default function TabLayout() {
         name="Dashboard"
         options={{
           title: 'Dashboard',
-          tabBarIcon: ({ color }) => (<IconSymbol size={28} name="house.fill" color={color} />),
+          tabBarIcon: ({ color }) => (<Feather name="home" size={24} color="black" />),
         }}
       />
       
@@ -30,21 +33,21 @@ export default function TabLayout() {
         name="Cart"
         options={{
           title: 'Cart',
-          tabBarIcon: ({ color }) =>( <AntDesign name="shopping-cart" size={24} color="black" />),
+          tabBarIcon: ({ color }) =>( <AntDesign name="shopping-cart" size={28} color="black" />),
         }}
       />
       <Tabs.Screen
         name="OrderHistory"
         options={{
           title: 'History',
-          tabBarIcon: ({ color }) =>( <FontAwesome name="history" size={28} color={color} />),
+          tabBarIcon: ({ color }) =>( <MaterialIcons name="update" size={28} color="black" />),
         }}
       />
       <Tabs.Screen
         name="Profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color }) =>( <FontAwesome name="user" size={28} color={color} />),
+          tabBarIcon: ({ color }) =>( <FontAwesome5 name="user" size={24} color="black" />),
         }}
       />
       

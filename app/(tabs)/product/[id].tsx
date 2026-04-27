@@ -7,19 +7,31 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import * as SecureStore from "expo-secure-store";
 import { baseURL } from "@/app/_layout";
+import {
+  useFonts,
+  Judson_400Regular,
+  Judson_700Bold,
+} from "@expo-google-fonts/judson";
 interface Product{
     name:string,
     price:number,
     description:string,
     image:string
 }
+import { useNavigation } from "expo-router";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 const ProductDetails=()=>{
 
     const {id} = useLocalSearchParams();
+    const [fontsLoaded] = useFonts({
+    Judson_400Regular,
+    Judson_700Bold,
+  });
 
     const [product,setProduct]=useState<Product | null>();
     const [loading, setLoading]=useState(true);
+    const navigation = useNavigation();
 
     useEffect(()=>{
         if(id){
@@ -79,6 +91,14 @@ const ProductDetails=()=>{
     return(
         <>
         <Header/>
+        <TouchableOpacity style={styles.arrow} onPress={() => navigation.goBack()}>
+        <MaterialIcons
+          name="keyboard-backspace"
+          size={34}
+          color="black"
+          style={styles.topArrow}
+        />
+      </TouchableOpacity>
         <ScrollView style={styles.container}>
             <Image
             source={{
@@ -120,6 +140,7 @@ container:{
     flex:1,
     padding:20,
     marginBottom:1,
+    marginTop:-20,
 },
 center:{
     flex:1,
@@ -130,6 +151,13 @@ SizeView:{
     flexDirection:"row",
     gap:20,
 },
+ topArrow: {
+    marginTop: 50,
+    marginRight: 320
+  },
+  arrow:{
+marginTop: -50,
+  },
 image:{
     width:"100%",
     height:350,
@@ -137,7 +165,7 @@ image:{
     marginBottom:20,
 },
 button: {
-    backgroundColor: "rgb(202, 38, 158)",
+    backgroundColor: "#B80047",
     paddingHorizontal: 16,
     paddingVertical: 8,
     marginTop: 20,
@@ -171,8 +199,9 @@ backgroundColor:"black",
     alignSelf:"center"
   },
 title:{
-      fontSize:23,
-      fontWeight:"bold",
+fontFamily:"Judson_700Bold",
+      fontSize:30,
+      
     },
 price:{
     fontSize:18,

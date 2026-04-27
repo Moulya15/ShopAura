@@ -7,6 +7,7 @@ import { FlatList } from "react-native";
 import Header from "../Header";
 import * as ImagePicker from 'expo-image-picker';
 import { baseURL } from "../_layout";
+import Feather from "@expo/vector-icons/Feather";
 
 
 const Dashboard = () => {
@@ -17,10 +18,12 @@ const Dashboard = () => {
   const [search,setsearch] = useState("");
   // const [image,setimage]=useState<string | null>(null);
   const [productImage,setproductImage] = useState("");
+  const[imagePicked,setimagePicked]= useState(false);
 
 const pickImage= async ()=>{
   let {status} = await ImagePicker.requestMediaLibraryPermissionsAsync();
   if (status!=="granted") return ;
+  setimagePicked(true);
 
   const result = await ImagePicker.launchImageLibraryAsync({
     mediaTypes:ImagePicker.MediaTypeOptions.Images,
@@ -89,6 +92,7 @@ const captureImage= async ()=>{
   }, []);
   const userName = SecureStore.getItemAsync("name");
 
+
   
 
   const handleSubmit = () => {
@@ -155,31 +159,28 @@ const captureImage= async ()=>{
     //   })
   }
 
-  const filteredData=products.filter((item:any)=>
-    item.name.toLowerCase().includes(search.toLowerCase()));
-
-  const renderItem = ({ item }: { item: any }) => (
-    <View>
-      <Text>Name : {item.name}</Text>
-      <Text>Price : {item.price}</Text>
-      <Text>Description : {item.description}</Text>
-    </View>
-  )
+  
 
 
   return (
     <>
+     <Header/>
+     <Text style={styles.heading}>  Admin Dashboard</Text>
     <ScrollView>
-    <Header/>
+   
       <View style={styles.container}>
-        <Text style={styles.heading}>Dashboard</Text>
-        <Text style={styles.para}>Welcome {userName}</Text>
+       <View style={styles.inputContainer}>
+        <Text>Product Name : </Text>
         <TextInput
           style={styles.input}
           placeholder="Product Name"
           value={name}
           onChangeText={setname}
         />
+        </View>
+
+<View style={styles.inputContainer}>
+ <Text>Product Price : </Text>
         <TextInput
           style={styles.input}
           placeholder="Product price"
@@ -187,29 +188,47 @@ const captureImage= async ()=>{
           onChangeText={setprice}
           keyboardType="numeric"
         />
+</View>
 
+<View style={styles.inputContainer}>
+ <Text>Product description : </Text>
         <TextInput
           style={styles.input}
           placeholder="Product description"
           value={description}
           onChangeText={setdescription}
         />
-         <TouchableOpacity style={styles.button} onPress={pickImage}>
+        </View>
+        {imagePicked ? (
+  // {productImage && (
+  <>
+          <Image source = {{ uri:productImage }} style = {styles.imageUploaded}/>
+          <TouchableOpacity style={styles.button} onPress={()=>setimagePicked(false)}>
+            <Text style={styles.buttonText}>Change Image</Text>
+          </TouchableOpacity>
+          </>
+        // )}
+        ):(
+          <>
+<View style={{flexDirection:"row",gap:20}}>
+  <TouchableOpacity style={styles.button} onPress={pickImage}>
           <Text style={styles.buttonText}>Upload a Image</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={captureImage}>
           <Text style={styles.buttonText}>Capture a Image</Text>
         </TouchableOpacity>
+  </View>
+        </>
+        )}
+         
         {/* {image && (
           <Image source = {{ uri:image }} style = {styles.imageUploaded}/>
         )} */}
 
-        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-          <Text style={styles.buttonText}> Save Product</Text>
+        <TouchableOpacity style={styles.button1} onPress={handleSubmit}>
+        <Text style={styles.buttonText}><Feather name="save" size={15} color="white" /> Save </Text>
         </TouchableOpacity>
-        {productImage && (
-          <Image source = {{ uri:productImage }} style = {styles.imageUploaded}/>
-        )}
+      
 
 
 {/*         
@@ -249,20 +268,30 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
-    color: "#0cbfebff",
+    color: "#B80047",
     marginTop: 20,
   },
   input: {
-    borderColor: "grey",
-    borderWidth: 2,
-    borderRadius: 10,
-    paddingHorizontal: 28,
-    paddingVertical: 8,
-    width: 200,
-    textAlign: "center",
-    marginTop: 20,
-    color: "black",
+    // borderColor: "grey",
+    // borderWidth: 2,
+    // borderRadius: 10,
+    // paddingHorizontal: 28,
+    // paddingVertical: 8,
+    // width: 200,
+    // textAlign: "center",
+    // marginTop: 20,
+    // color: "black",
+     borderBottomWidth: 1,
+  
+  padding: 5,
+  width:200,
   },
+  inputContainer:{
+  flexDirection: "row",
+  alignItems: "center",
+  gap:20,
+},
+
   para: {
     fontSize: 16,
     marginBottom: 10,
@@ -275,18 +304,27 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   button: {
-    backgroundColor: "#0cbfebff",
+    backgroundColor: "#B80047",
     paddingHorizontal: 16,
     paddingVertical: 8,
     marginTop: 20,
     borderRadius: 8,
+  },
+  button1: {
+    backgroundColor: "#B80047",
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    marginTop: 20,
+    borderRadius: 8,
+    marginLeft:200,
+    width:100
   },
   buttonText: {
     color: "white",
     fontWeight: "bold",
   },
   outerText: {
-    color: "#0cbfebff",
+    color: "#B80047",
     marginTop: 20,
     textDecorationLine: "underline",
   },

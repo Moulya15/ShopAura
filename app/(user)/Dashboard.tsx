@@ -1,4 +1,3 @@
-//this is feature
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import axios from "axios";
 import { useRouter } from "expo-router";
@@ -8,6 +7,12 @@ import { Alert, FlatList, Image, ScrollView, StyleSheet, Text, TextInput, Toucha
 import Swiper from 'react-native-swiper';
 import Header from "../Header";
 import { baseURL } from "../_layout";
+import {
+  useFonts,
+  Judson_400Regular,
+  Judson_700Bold,
+} from "@expo-google-fonts/judson";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const Dashboard = () => {
   const [products, setproducts] = useState([]);
@@ -15,6 +20,10 @@ const Dashboard = () => {
   const [price, setprice] = useState("");
   const [description, setdescription] = useState("");
   const [search, setsearch] = useState("");
+  const [fontsLoaded] = useFonts({
+      Judson_400Regular,
+      Judson_700Bold,
+    });
 
   const fetchProducts = () => {
     console.log("inside fetchproducts");
@@ -35,8 +44,6 @@ const Dashboard = () => {
   }, []);
   const userName = SecureStore.getItemAsync("name");
   const router = useRouter();
-
-
 
   const handleSubmit = () => {
     console.log("submit button clciked");
@@ -98,7 +105,6 @@ const Dashboard = () => {
   return (
     <>
       <Header />
-      {/* z */}
       <ScrollView>
         <View style={{ height: 200 }}>
         <Swiper autoplay showsPagination>
@@ -108,13 +114,27 @@ const Dashboard = () => {
         </Swiper>
       </View>
       <View style={styles.container}>
-
+        
+       {/* <View style={styles.searchContianer}>
+        <Ionicons name="search" size={14} color="black" />
         <TextInput
           style={styles.input}
           placeholder="Search by name"
           value={search}
           onChangeText={setsearch}
         />
+        </View> */}
+        
+<View style={styles.searchContainer}>
+  <Ionicons name="search" size={22} color="black" style={styles.icon} />
+
+  <TextInput
+    style={styles.input}
+    placeholder="Search by name"
+    value={search}
+    onChangeText={setsearch}
+  />
+</View>
 
         {/* if we want 1 product per row and everything follows up, then dont mention numcolumns etc */}
 
@@ -167,17 +187,48 @@ const styles = StyleSheet.create({
     color: "#0cbfebff",
     marginTop: 20,
   },
-  input: {
-    borderColor: "grey",
-    borderWidth: 2,
-    borderRadius: 20,
-    paddingHorizontal: 28,
-    paddingVertical: 8,
-    width: 350,
-    textAlign: "center",
-    marginTop: 20,
-    color: "black",
-  },
+  // searchContianer:{
+
+  //   flexDirection: 'row',
+  //   alignItems: 'center',
+  //   borderWidth: 1,
+  //   borderColor: '#f6f3eb',
+  //   borderRadius: 12,
+  //   paddingHorizontal: 10,
+  //   height: 50,
+  //   width: 220,
+  //   margin: 10
+  // },
+  // input: {
+  //   borderColor: "grey",
+  //   borderWidth: 2,
+  //   borderRadius: 20,
+  //   paddingHorizontal: 28,
+  //   paddingVertical: 8,
+  //   width: 350,
+  //   textAlign: "center",
+  //   marginTop: 20,
+  //   color: "black",
+  // },
+  searchContainer: {
+  position: "relative",
+  margin:10
+},
+
+icon: {
+  position: "absolute",
+  left: 10,
+  top: 6,
+  zIndex: 1,
+},
+
+input: {
+  width:300,
+  height: 40,
+  borderWidth: 1,
+  borderRadius: 20,
+  paddingLeft: 35, // VERY IMPORTANT
+},
   para: {
     fontSize: 16,
     marginBottom: 10,
@@ -189,6 +240,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 30,
+    backgroundColor:"#f6f3eb",
+    
   },
   button: {
     backgroundColor: "#0cbfebff",

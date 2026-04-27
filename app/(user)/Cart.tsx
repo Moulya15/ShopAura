@@ -136,7 +136,10 @@ const Cart=()=>{
                         
 
                         <View style={styles.qytContainer}>
+                            <View>
                             <Text style={styles.productName}>{item?.product?.name}</Text>
+                            <Text style={styles.productName}>{item?.product?.description}</Text>
+                            </View>
                        
                             <View style={styles.plusminus}>
                                 <TouchableOpacity style={styles.qytButton} onPress={()=> updateQuantity(item.id, item.quantity-1)}>
@@ -151,6 +154,7 @@ const Cart=()=>{
                             </View>
                         </View>
                          <View style={styles.trash}>
+                            
                             <Text style={styles.priceText}><FontAwesome name="rupee" size={13} color="black" /> {item?.product?.price}</Text>
 <TouchableOpacity onPress={()=>{ removeItem(item.id)}}
                         style={styles.deleteIcon}>
@@ -280,7 +284,7 @@ fontWeight:"bold",
 marginBottom:10,
     },
     checkoutButton:{
-backgroundColor:"red",
+backgroundColor:"#B80047",
 padding:12,
 borderRadius:8,
 alignItems:"center",

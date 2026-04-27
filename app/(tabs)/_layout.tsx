@@ -36,7 +36,7 @@ export default function TabLayout() {
         name="Register"
         options={{
           title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={24} name="paperplane.fill" color={color} />,
           tabBarStyle:{display:"none"}
         }}
       />

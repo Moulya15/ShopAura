@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 import axios from "axios";
 import { baseURL } from "../_layout";
+import Feather from "@expo/vector-icons/Feather";
+import Fontisto from "@expo/vector-icons/Fontisto";
 
 interface Product{
     id:number;
@@ -79,9 +81,8 @@ const history=()=>{
         keyExtractor={(item)=>item.id.toString()}
         renderItem={({item})=>(
             <View style={styles.orderCard}>
-                <Text style={styles.orderId}>Order # {item.id}</Text>
-                <Text style={styles.date}>
-                    {new Date (item.orderDate).toLocaleString()}
+                <Text style={styles.orderId}> <Feather name="package" size={18} color="black" /> Order # {item.id}</Text>
+                <Text style={styles.date}><Fontisto name="date" size={12} color="black" />  {new Date (item.orderDate).toLocaleString()}
                 </Text>
 
                 {item?.items?.map((orderItem)=>(

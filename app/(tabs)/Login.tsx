@@ -19,7 +19,7 @@ import {
 function LoginPage() {
   const [mobile, setmobile] = useState("");
   const [password, setpassword] = useState("");
-  const [role, setrole] = useState("users");
+  const [role, setrole] = useState("User");
   const scheme = useColorScheme();
   const router = useRouter();
   const navigation = useNavigation();
@@ -57,13 +57,14 @@ function LoginPage() {
         mobile,
         password,
       })
-      .then((response) => {
+      .then(async (response) => {
         console.log("login clicked");
         Alert.alert("Success", "Login successful");
         console.log("Login Response: ", response.data);
-        SecureStore.setItem("name", response.data.name);
-        SecureStore.setItem("mobile", mobile);//for profile
-        SecureStore.setItem("userId", response.data.id.toString());
+     await SecureStore.setItemAsync("name", response.data.name);
+await SecureStore.setItemAsync("mobile", mobile);
+await SecureStore.setItemAsync("userId", response.data.id.toString());
+await SecureStore.setItemAsync("role", role);
         console.log("RESPONSE DATA:", response.data);
         if (role === "Admin") {
           router.replace("/(admin)/Dashboard");
@@ -218,9 +219,10 @@ function LoginPage() {
         </TouchableOpacity>
 
         {/* Register */}
-        <TouchableOpacity onPress={() => router.replace("/Register")}>
+        <TouchableOpacity onPress={() => router.push("/Register")}>
           <Text style={style.outerText}>
             Don't you have an account?
+            
           </Text>
         </TouchableOpacity>
 
